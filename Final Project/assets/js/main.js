@@ -1,6 +1,35 @@
 (function ($) {
+
   "use strict";
 
+  /*
+  |--------------------------------------------------------------------------
+  | Template Name: Davix
+  | Author: Laralink
+  | Version: 1.0.0
+  |--------------------------------------------------------------------------
+  |--------------------------------------------------------------------------
+  | TABLE OF CONTENTS:
+  |--------------------------------------------------------------------------
+  |
+  | 1. Placeholder
+  | 2. Dynamic Background
+  | 3. Menu
+  | 4. Sticky Header
+  | 5. One Page Navigation
+  | 6. Progress Bar
+  | 7. Ajax Contact Form And Appointment
+  | 8. Light Gallery
+  | 9. Social Button Hover
+  | 10. Slick Slider
+  | 11. particles
+  | 12. Ripple
+  | 13. Parallax Effect
+  */
+
+  /*--------------------------------------------------------------
+    Scripts initialization
+  --------------------------------------------------------------*/
   $.exists = function (selector) {
     return $(selector).length > 0;
   };
@@ -27,7 +56,7 @@
     rippleInit();
     new WOW().init();
 
-  });\\
+  });
 
   $(window).on("scroll", function () {
     stickyHeader();
@@ -216,6 +245,32 @@
     }
   }
 
+
+  /*--------------------------------------------------------------
+    8. Light Gallery
+  --------------------------------------------------------------*/
+  function lightGallery() {
+    $('.st-lightgallery').each(function () {
+      $(this).lightGallery({
+        selector: '.st-lightbox-item',
+        subHtmlSelectorRelative: false,
+        thumbnail: false,
+        mousewheel: true
+      });
+    });
+  }
+
+  /*--------------------------------------------------------------
+    9. Social Button Hover
+  --------------------------------------------------------------*/
+  function socialBtnHover() {
+    $(".st-social-btn").hover(
+      function () {
+        $(this).addClass("active").siblings().removeClass('active');
+      }
+    )
+  }
+
   /*--------------------------------------------------------------
     10. Slick Slider
   --------------------------------------------------------------*/ 
@@ -301,5 +356,162 @@
       });
     })
   }
+  /*--------------------------------------------------------------
+    11. particles
+  --------------------------------------------------------------*/ 
+  function particles() {
+    if ($.exists('#particles-js')) {
+      particlesJS("particles-js", {
+        "particles": {
+          "number": {
+            "value": 355,
+            "density": {
+              "enable": true,
+              "value_area": 789.1476416322727
+            }
+          },
+          "color": {
+            "value": "#ffffff"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            },
+            "image": {
+              "src": "img/github.svg",
+              "width": 100,
+              "height": 100
+            }
+          },
+          "opacity": {
+            "value": 0.48927153781200905,
+            "random": false,
+            "anim": {
+              "enable": true,
+              "speed": 0.6,
+              "opacity_min": 0,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 2,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 5,
+              "size_min": 0,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": false,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 0.2,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "bubble"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 400,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 83.91608391608392,
+              "size": 1,
+              "duration": 3,
+              "opacity": 1,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200,
+              "duration": 0.4
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true
+      });
+    }
+  }
+  /*--------------------------------------------------------------
+    12. Ripple
+  --------------------------------------------------------------*/
+  function rippleInit() {
+    if ($.exists('.st-ripple-version')) {
+      $('.st-ripple-version').each(function () {
+        $('.st-ripple-version').ripples({
+          resolution: 512,
+          dropRadius: 20,
+          perturbance: 0.04,
+        });
+      });
+    }
+  }
 
-})(jQuery);
+  /*--------------------------------------------------------------
+    13. Parallax Effect
+  --------------------------------------------------------------*/
+  function parallaxEffect() {
+    $('.st-parallax').each(function() {
+      var windowScroll = $(document).scrollTop(),
+        windowHeight = $(window).height(),
+        barOffset = $(this).offset().top,
+        barHeight = $(this).height(),
+        barScrollAtZero = windowScroll - barOffset + windowHeight,
+        barHeightWindowHeight = windowScroll + windowHeight,
+        barScrollUp = barOffset <= (windowScroll + windowHeight),
+        barSctollDown = barOffset + barHeight >= windowScroll;
+
+      if (barSctollDown && barScrollUp) {
+        var calculadedHeight = barHeightWindowHeight - barOffset;
+        var largeEffectPixel = ((calculadedHeight / 5));
+        var mediumEffectPixel = ((calculadedHeight / 20));
+        var miniEffectPixel = ((calculadedHeight / 10));
+
+        $(this).find('.st-to-left').css('transform', `translateX(-${miniEffectPixel}px)`);
+        $(this).find('.st-to-right').css('transform', `translateX(${miniEffectPixel}px)`);
+        $(this).css('background-position', `center -${largeEffectPixel}px`);
+      }
+    });
+  }
+})(jQuery); // End of use strict
